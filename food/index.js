@@ -130,11 +130,20 @@ let products = [
 ]
 
 //render UI all products 
+//Innitially display all products
+window.onload = () => {
+    handleFilterProduct('ALL');
+}
 
 // box-container
 //             card
-//                 imgContainer
+//                 imgCont
+//                         image
 //                 content
+//                         title
+//                         price
+//                         button
+
 
 for (var i of products) {
 
@@ -162,19 +171,147 @@ for (var i of products) {
     let price = document.createElement("h4");
     price.innerText = i.productPrice + ".00$";
     content.appendChild(price);
+
     //Add to cart button
-    let btn = document.createElement("button");
+    let btn = document.createElement("div");
     btn.classList.add("add-cart");
     btn.innerHTML="Add to cart"
-    btn.setAttribute("onclick", i.id);
+
+    // btn.onclick = function(){
+    //     console.log("div element clicked");
+    // }
 
     content.appendChild(btn);
 
     card.appendChild(content);
 
-
     document.getElementById("box-container").appendChild(card);
 }
+
+//ADD TO CART PAGE
+let carts = document.querySelectorAll('.add-cart');
+for (let i = 0; i < carts.length; i++) {
+    carts[i].addEventListener('click', () => {
+        cartNumbers(products[i]);
+        totalCost(products[i]);
+    })
+}
+
+// get cartNumbers on localStorage upload on UI cart-span
+function onLoadCartNumbers() {
+    let productNumbers = localStorage.getItem('cartNumbers');
+    if (productNumbers) {
+        document.querySelector('.cart span').textContent = productNumbers;
+    }
+}
+onLoadCartNumbers();
+//upload change value on local web
+function cartNumbers(product) {
+    let productNumbers = localStorage.getItem('cartNumbers');
+    productNumbers = parseInt(productNumbers);
+
+    if (productNumbers) {
+        localStorage.setItem('cartNumbers', productNumbers + 1);
+        document.querySelector('.cart span').textContent = productNumbers + 1;
+    }
+    else {
+        localStorage.setItem('cartNumbers', 1);
+        document.querySelector('.cart span').textContent = 1;
+    }
+    setItems(product);
+}
+
+
+// Set value after render
+
+function setItems(product) {
+    let cartItems = localStorage.getItem('productsInCart');
+    cartItems = JSON.parse(cartItems);
+    console.log("cartItems" , cartItems);
+
+    if (cartItems != null) {
+        if (cartItems[product.productImg] == undefined) {
+            cartItems = {
+                ...cartItems,
+                [product.productImg]: product
+            }
+        }
+        cartItems[product.productImg].inCart += 1;
+    }
+    else {
+        product.inCart = 1;
+        cartItems = {
+            [product.productImg]: product
+        }
+    }
+    localStorage.setItem('productsInCart', JSON.stringify(cartItems));
+}
+
+//total cost cart
+function totalCost(product) {
+    // console.log('The product price is', product.price);
+    let cartCost = localStorage.getItem('totalCost');
+  
+    if (cartCost != null) {
+      cartCost = parseInt(cartCost);
+      localStorage.setItem('totalCost', cartCost +
+        product.productPrice);
+    } else {
+      localStorage.setItem('totalCost', product.productPrice);
+    }
+  }
+  
+  
+  //render UI
+  function displayCart() {
+    let cartItems = localStorage.getItem('productsInCart');
+    cartItems = JSON.parse(cartItems);
+    let productContainer = document.querySelector('.products-container');
+    let cartCost = localStorage.getItem('totalCost');
+    
+    console.log(cartItems);
+    console.log(typeof cartItems);
+
+  
+    if (cartItems && productContainer) {
+      productContainer.innerHTML = ``;
+      Object.values(cartItems).map(item => {
+        productContainer.innerHTML += `
+            <div class="product">
+              <i class="fa-regular fa-circle-xmark"></i>
+              <img src= "${item.productImg}">
+              <h2>${item.productTitle}</h2>
+            </div>
+            <div class="price">${item.productPrice},00</div>
+  
+            <div class="quantity">
+                <i class="fa-solid fa-minus"></i>
+                <span>${item.inCart}</span>
+                <i class="fa-solid fa-plus"></i>
+            </div>
+  
+            <div class ="total">
+                ${item.inCart * item.productPrice},00
+            </div>         
+  
+               `;
+      });
+  
+      productContainer.innerHTML += `
+                <div class="basketTotalContainer>
+                    <h2 class="basketTotalTitle">
+                        Basket Total
+                    </h2>
+                    <h3 class="basketTotal">
+                        $${cartCost},00
+                    </h3>
+                  </div>
+                  `;
+    }
+  }
+  displayCart();
+
+
 
 //Test filter button one function
 function handleFilterProduct(value) {
@@ -225,138 +362,8 @@ document.getElementById("search").addEventListener("click", () => {
     })
 })
 
-//Innitially display all products
-window.onload = () => {
-    handleFilterProduct('ALL');
-}
 
 
-
-
-
-//ADD TO CART PAGE
-let carts = document.querySelectorAll('.add-cart');
-for (let i = 0; i < carts.length; i++) {
-    carts[i].addEventListener('click', () => {
-        cartNumbers(products[i]);
-        totalCost(products[i]);
-    })
-}
-
-// get cartNumbers on localStorage upload on UI cart-span
-function onLoadCartNumbers() {
-    let productNumbers = localStorage.getItem('cartNumbers');
-    if (productNumbers) {
-        document.querySelector('.cart span').textContent = productNumbers;
-    }
-}
-onLoadCartNumbers();
-//upload change value on local web
-function cartNumbers(product) {
-    let productNumbers = localStorage.getItem('cartNumbers');
-    productNumbers = parseInt(productNumbers);
-
-    if (productNumbers) {
-        localStorage.setItem('cartNumbers', productNumbers + 1);
-        document.querySelector('.cart span').textContent = productNumbers + 1;
-    }
-    else {
-        localStorage.setItem('cartNumbers', 1);
-        document.querySelector('.cart span').textContent = 1;
-    }
-    setItems(product);
-}
-
-// Set value after render
-
-function setItems(product) {
-    let cartItems = localStorage.getItem('productsIncart');
-    cartItems = JSON.parse(cartItems);
-
-    if (cartItems != null) {
-        if (cartItems[product.productImg] == undefined) {
-            cartItems = {
-                ...cartItems,
-                [product.productImg]: product
-            }
-        }
-        cartItems[product.productImg].inCart += 1;
-    }
-    else {
-        product.inCart = 1;
-        cartItems = {
-            [product.productImg]: product
-        }
-    }
-    localStorage.setItem('productsInCart', JSON.stringify(cartItems));
-}
-
-//total cost cart
-function totalCost(product) {
-    let cartCost = localStorage.getItem('totalCost');
-    console.log('My cartCost is:', cartCost);
-    console.log(typeof cartCost);
-
-    if (cartCost != null) {
-        cartCost = parseInt(cartCost);
-        localStorage.setItem('totalCost', cartCost + product.productPrice)
-    } else {
-        localStorage.setItem('totalCost', product.productPrice);
-    }
-}
-
-//render UI cart.html
-
- function renderCart() {
-    let cartItems = localStorage.getItem('productsInCart');
-    cartItems = JSON.parse(cartItems);
-
-    let productContainer = document.getElementsByClassName('products-container');
-    let cartCost = localStorage.getItem('totalCost');
-
-        console.log(cartItems);
-        console.log(productContainer);
-
-
-    if (cartItems && productContainer) {
-        productContainer.innerHTML = ``;
-        Object.values(cartItems).map((product) => {
-            productContainer.innerHTML += `
-            <div class="products">
-            <i class="fa-regular fa-circle-xmark"></i>
-            <img src= "${product.productImg}">
-            <h2>${product.productTitle}</h2>
-            </div>
-
-            <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">.No</th>
-                <th scope="col">Image</th>
-                <th scope="col">Name</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style= {text-align: center;}>
-                <td>${index + 1}</td>
-                <img width="40px" src="${product.productImg}" >
-                <td>${product.productTitle}</td>
-                <td>${product.inCart}</td>
-                <td>${product.productPrice}.00$</td>
-              </tr>
-            </tbody>
-            <tr>
-                <td colspan="2">Total cost</td>
-                <td>${cartCost}.00$</td>
-              </tr>
-          </table>
-            `
-        });
-    }
-}
-renderCart();
 
 
 

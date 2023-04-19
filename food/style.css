@@ -168,25 +168,64 @@ header .navbar a:hover{
     height: 8rem;  
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
   }
+
+  header .navbar span{
+    background-color: var(--red);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: absolute;
+    top: 5px;
+    left: 95%;
+    padding: 1px 6px;
+    font-size: 14px;
+  }
+
+  /* header .navbar .shopping{
+    position: relative;
+    font-size: 28px;
+    margin: 29px;
+    color:#666;
+  }
+
+  header .navbar .shopping img{
+    width: 38px;
+  }
+  header .navbar .shopping span{
+    background-color: var(--red);
+    border-radius: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: absolute;
+    top: -11px;
+    left: 90%;
+    padding: 1px 10px;
+    font-size: 18px;
+  } */
+
   
   /* style button-container */
-  .button-container {
+  /* .button-container {
     justify-content: space-between;
     text-align: center;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
     margin-bottom: 3rem;
-  }
- .button-container button{
+  } */
+ /* .button-container button{
     font-size: 38px;
     border-radius: 1rem;
     margin: .6rem;
     transition: transform .2s; /* Animation */
-  }
-
+  
+/* 
  .button-container button:hover {
   transform: scale(1.1);
   border: .2rem solid rgba(0,0,0,.3);
-}
+} */
 
   /* render all product */
 
