@@ -129,11 +129,17 @@ let products = [
     },
 ]
 
-//render UI all products 
+// export default products
+
+
+//render UI all products
 //Innitially display all products
-window.onload = () => {
-    handleFilterProduct('ALL');
-}
+
+
+
+
+
+
 
 // box-container
 //             card
@@ -145,50 +151,54 @@ window.onload = () => {
 //                         button
 
 
-for (var i of products) {
+function renderProduct(){
+    
 
-    //create box
-    let card = document.createElement("div");
-    card.classList.add("box", i.type, "hide");
-    //image div
-    let imgContainer = document.createElement("div");
-    imgContainer.classList.add("image-container");
-    //img tag
-    let image = document.createElement("img");
-    image.setAttribute("src", i.productImg);
-    imgContainer.appendChild(image);
+    for (var i of products) {
 
-    card.appendChild(imgContainer);
+        //create box
+        let card = document.createElement("div");
+        card.classList.add("box", i.type, "hide");
+        //image div
+        let imgContainer = document.createElement("div");
+        imgContainer.classList.add("image-container");
+        //img tag
+        let image = document.createElement("img");
+        image.setAttribute("src", i.productImg);
+        imgContainer.appendChild(image);
 
-    //content-container
-    let content = document.createElement("div");
-    content.classList.add("content-container");
-    //productTitle
-    let title = document.createElement("h3");
-    title.innerText = i.productTitle.toUpperCase();
-    content.appendChild(title);
-    //price
-    let price = document.createElement("h4");
-    price.innerText = i.productPrice + ".00$";
-    content.appendChild(price);
+        card.appendChild(imgContainer);
 
-    //Add to cart button
-    let btn = document.createElement("div");
-    btn.classList.add("add-cart");
-    btn.innerHTML="Add to cart"
+        //content-container
+        let content = document.createElement("div");
+        content.classList.add("content-container");
+        //productTitle
+        let title = document.createElement("h3");
+        title.classList.add("product-name");
+        title.innerText = i.productTitle.toUpperCase();
+        content.appendChild(title);
+        //price
+        let price = document.createElement("h4");
+        price.innerText = i.productPrice + ".00$";
+        content.appendChild(price);
 
-    // btn.onclick = function(){
-    //     console.log("div element clicked");
-    // }
+        //Add to cart button
+        let btn = document.createElement("div");
+        btn.classList.add("add-cart");
+        btn.innerHTML="Add to cart"
 
-    content.appendChild(btn);
+        content.appendChild(btn);
 
-    card.appendChild(content);
+        card.appendChild(content);
 
-    document.getElementById("box-container").appendChild(card);
+        document.getElementById("box-container").appendChild(card);
+    }
 }
 
-//ADD TO CART PAGE
+renderProduct();
+
+
+//FUNCTION CART PAGE
 let carts = document.querySelectorAll('.add-cart');
 for (let i = 0; i < carts.length; i++) {
     carts[i].addEventListener('click', () => {
@@ -205,6 +215,7 @@ function onLoadCartNumbers() {
     }
 }
 onLoadCartNumbers();
+
 //upload change value on local web
 function cartNumbers(product) {
     let productNumbers = localStorage.getItem('cartNumbers');
@@ -248,10 +259,10 @@ function setItems(product) {
 }
 
 //total cost cart
-function totalCost(product) {
+   function totalCost(product) {
     // console.log('The product price is', product.price);
     let cartCost = localStorage.getItem('totalCost');
-  
+
     if (cartCost != null) {
       cartCost = parseInt(cartCost);
       localStorage.setItem('totalCost', cartCost +
@@ -260,57 +271,8 @@ function totalCost(product) {
       localStorage.setItem('totalCost', product.productPrice);
     }
   }
-  
-  
-  //render UI
-  function displayCart() {
-    let cartItems = localStorage.getItem('productsInCart');
-    cartItems = JSON.parse(cartItems);
-    let productContainer = document.querySelector('.products-container');
-    let cartCost = localStorage.getItem('totalCost');
-    
-    console.log(cartItems);
-    console.log(typeof cartItems);
 
-  
-    if (cartItems && productContainer) {
-      productContainer.innerHTML = ``;
-      Object.values(cartItems).map(item => {
-        productContainer.innerHTML += `
-            <div class="product">
-              <i class="fa-regular fa-circle-xmark"></i>
-              <img src= "${item.productImg}">
-              <h2>${item.productTitle}</h2>
-            </div>
-            <div class="price">${item.productPrice},00</div>
-  
-            <div class="quantity">
-                <i class="fa-solid fa-minus"></i>
-                <span>${item.inCart}</span>
-                <i class="fa-solid fa-plus"></i>
-            </div>
-  
-            <div class ="total">
-                ${item.inCart * item.productPrice},00
-            </div>         
-  
-               `;
-      });
-  
-      productContainer.innerHTML += `
-                <div class="basketTotalContainer>
-                    <h2 class="basketTotalTitle">
-                        Basket Total
-                    </h2>
-                    <h3 class="basketTotal">
-                        $${cartCost},00
-                    </h3>
-                  </div>
-                  `;
-    }
-  }
-  displayCart();
-
+//FUNCTION CART PAGE
 
 
 //Test filter button one function
@@ -343,15 +305,18 @@ function handleFilterProduct(value) {
     })
 }
 
+
 // render search button onClick
 document.getElementById("search").addEventListener("click", () => {
     //initialization
     let searchInput = document.getElementById("search-input").value;
+
     let cards = document.querySelectorAll(".box");
     console.log(searchInput);
     console.log(cards);
+    let elements = document.querySelectorAll(".product-name");
 
-    let elements = docment.querySelectorAll(".content-container");
+    //loop through all element
     elements.forEach((e, index) => {
         if (e.innerHTML.includes(searchInput.toUpperCase())) {
             cards[index].classList.remove("hide");
@@ -363,7 +328,6 @@ document.getElementById("search").addEventListener("click", () => {
 })
 
 
-
-
-
-
+window.onload = () => {
+    handleFilterProduct('ALL');
+    }
