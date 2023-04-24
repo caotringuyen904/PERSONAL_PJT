@@ -426,7 +426,7 @@ margin: 0 auto;
 .products-container  {
 margin-top: 98px;
 margin-bottom: 0;
-width: 68%;
+width: 88%;
 float:center;
 font-size: large;
 
@@ -439,14 +439,20 @@ font-size: large;
   font-size: large;
   display: flex;
   font-weight: bolder;
+  border-bottom: 1px solid #000;
+
 }
 
 .product {
-  margin-left: 10%;
+  margin-left: 11%;
   margin-bottom: 0;
   width: 98%;
   font-size: large;
   display: flex;
+  border-bottom: 1px solid #000;
+  margin-top: 1rem;
+
+
   }
 
   
@@ -455,22 +461,26 @@ font-size: large;
   font-size: large;
   font-weight: bolder;
   float: right;
-  margin-left: 49%;
+  margin-left: 66%;
   display: flex;
+  margin-bottom: 10%;
 
 }
 
   .col {
     flex-grow: 1;
-    border-bottom: 1px solid #000;
   }
   
-  .col2x {
-    flex-grow: 1;
-    border-bottom: 1px solid #000;
+  .no{
+    margin-left: 2%;
+    margin-right: 8%;
   }
-
-
+  .btnRemove, .btnQuantity {
+    color: #ddd;
+    background-color: #6579ff;
+    width: 26px;
+    border-radius: 50%;
+  }
 
 
 
