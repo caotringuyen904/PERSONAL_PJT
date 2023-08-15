@@ -258,17 +258,6 @@ function changeQuantity(itemName, operation) {
      //update TotalCost //
      
     displayCart();
-    //update cartNumbers in cartPage
-
-    
-
-    // update quantity in cartPage
-    // const quantityElement = document.getElementById(btnQuantity);
-    // console.log(quantityElement);
-    // updateQuantityCart(quantityElement, cartItemsArray[index].inCart);
-
-
-    // update quantity in cartPage
 
 }
 

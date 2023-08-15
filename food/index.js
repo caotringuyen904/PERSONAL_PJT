@@ -129,16 +129,9 @@ let products = [
     },
 ]
 
-// export default products
-
 
 //render UI all products
 //Innitially display all products
-
-
-
-
-
 
 
 // box-container
@@ -152,7 +145,6 @@ let products = [
 
 
 function renderProduct(){
-    
 
     for (var i of products) {
 

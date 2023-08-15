@@ -17,46 +17,61 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- custom css file link  -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
     
 </head>
 
 <body>
     <!-- header section starts  -->
     <header>
-        <a href="index.html" class="logo">
-            <img class="logoonggia" width="100px" src="images/logoOngGia.png">
+        <a href="../food/index.html" class="logo">
+            <img class="logoonggia" width="100px" src="../food/images/logoOngGia.png">
         </a>
 
         <div id="menu-bar" class="fas fa-bars fa-times"></div>
      
         <nav class="navbar">
-            <a href="index.html">Home</a>
-            <a href="index.html">About</a>
-            <a class="cart" href="#default">
-                <i class="fa fa-shopping-cart" style="font-size:18px">
-                <span class='badge badge-danger' id='lblCartCount'>0</span></i>         
-            </a>
-          
+            <a href="../food/index.html">Home</a>
+            <a href="../food/index.html">About</a>
+            
         </nav>
     </header>
 
-
-    <div class="products-container">
-        <div class="product-title"></div>
-        <div class="product"> </div>
+    <div class="form-container">
+      <div class="form-auto">
+        <form id="addProductForm" class="form-group">
+          <div class="form-group col-sm-4">
+              <label for="name">Name:</label>
+              <input type="text" class="form-control" id="name" required>
+          </div>
+          <div class="form-group col-sm-4">
+            <label for="price">Price:</label>
+            <input type="number" class="form-control" id="price" required>
+          </div>
+          <div class="form-group col-sm-4">
+            <label for="image">Image:</label>
+            <input type="file" class="form-control-file" id="image" accept="image/*" required>
+          </div>
+          <div class="form-group col-sm-4">
+            <label for="type">Type:</label>
+            <select class="form-control" id="type">
+              <option value="BURGER">Burger</option>
+              <option value="CHICKEN">Chicken</option>
+              <option value="CAKE">Cake</option>
+              <option value="DESSERT">Dessert</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary ml-4">Add Product</button>
+        </form>
+      </div>      
     </div>
-    
-    <div class="product-total">
-    
-    </div>
+
+    <div class="" id="productList"></div>
 
 
-    <div  id="box-container" class="box-container">
 
-    </div>
- 
-        <script src="cartPage.js"></script>
+
+        <script src="adminPage.js"></script>
 
         <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
